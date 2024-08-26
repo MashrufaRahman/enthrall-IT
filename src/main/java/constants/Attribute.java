@@ -8,6 +8,7 @@ public enum Attribute {
 	CLASS("class");
 
 	String attribute;
+	//
 
 	// parameterized Constructor
 	// Constructor inside Enum are always private type
