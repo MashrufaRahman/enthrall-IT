@@ -20,11 +20,14 @@ public class Configuration {
 				properties.load(getClass().getClassLoader().getResourceAsStream("config.properties"));
 			} catch (IOException e) {
 				e.printStackTrace();
+				//System.out.println(e);
 			}
 		}
 		
 		// Individual return type method created
 		public String getProperties(String Key) {
+			//String abc = properties.getProperty(Key);
+              //return abc;
 			return properties.getProperty(Key);
 		}
 	

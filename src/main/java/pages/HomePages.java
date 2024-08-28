@@ -13,7 +13,9 @@ import lombok.experimental.FieldNameConstants;
 import static common.CommonAction.*;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Set;
+import constants.Attribute;
 
 public class HomePages {
 
@@ -51,12 +53,21 @@ public class HomePages {
 
 	@FindBy(xpath = "//input[@name='f_name']")
 	WebElement fName;
+	
+	@FindBy(xpath = "//small[contains(text(), 'alphabetic')]")
+	WebElement mustBeAlphabeticCharactersErrorMessage;
+	
+	@FindBy(xpath = "//small[contains(text(), 'First Name is a required field.')]")
+	WebElement firstNameIsARequiredFieldErrorMesssage;
 
 	@FindBy(xpath = "//input[@name='l_name']")
 	WebElement lName;
 
 	@FindBy(xpath = "//select[@name = 'i_am']")
-	WebElement IAm;
+	WebElement iAm;
+	
+	@FindBy(xpath = "//select[@name='i_am']/option")
+	List<WebElement> iAmList;
 
 	@FindBy(xpath = "//select[@id='id_course_wish_to_enroll']")
 	WebElement CourseWishToEnroll;
@@ -92,15 +103,25 @@ public class HomePages {
 	WebElement birthYear;
 	@FindBy(xpath = "//select[@name='birth_month']")
 	WebElement birthMonth;
+	@FindBy(xpath = "//select[@name='gender']")
+	WebElement Gender;
+	@FindBy(xpath = "//select[@id='id_birth_date']")
+	WebElement BirthDate;
+	@FindBy(xpath = "//select[@name='immigration_status']")
+	WebElement ImmigrationStatus;
+	@FindBy(xpath = "//input[@name='arrival_date']")
+	WebElement DateOfArrival;
+
+	
 
 	// @FindBy(xpath = "//select[@name='i_am' and @class='form-control']")
 	// WebElement IamDd;
-
+/*
 	public void clickLogo() {
 		logo.click();
 		pause(4000);
 	}
-
+*/
 	public void clickLoginButton() {
 		elementDisplayed(logInFromToolbar);
 		// clickEliment(logInFromToolbar);
@@ -118,16 +139,17 @@ public class HomePages {
 		pause(2000);
 
 	}
-
+/*
 	public void use_of_dropdown_selectByValue() {
-		pause(4000);
-		// driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
-		// driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
-		// driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(3000));
+		//pause(4000);
+		clickLoginButton();
+		 driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
+		 driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
+		 driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(3000));
 		select = new Select(IAm);
 		select.selectByValue("Student");
 		pause(4000);
-
+		//https://enthrallit.com/course/dashboard/enrolls/
 	}
 
 	public void use_of_dropdown_selectByIndex() {
@@ -143,8 +165,9 @@ public class HomePages {
 		pause(4000);
 
 	}
+	*/
 
-	public void clickAutomationButton() {
+	public void clickAutomationButtonAndDirectToEnrollmentPage() {
 		elementEnabled(automation);
 		verifyTextOfTheWebElement(automation, "Automation");
 		clickElement(automation);
@@ -159,16 +182,62 @@ public class HomePages {
 		String child = (String) allWindowHandales.toArray()[1];
 		driver.switchTo().window(child);
 		pause(4000);
+		
+	}
+	
+	public void firstNameValidation() {
+		verifyLengthOfTheFieldContent(fName, Attribute.MAX_LENGTH, "20");
+		inputTextThenClickTab(fName, "$$^&@$(");
+		verifyErrorMessageUnderTheField(mustBeAlphabeticCharactersErrorMessage, Attribute.INNER_HTML, "Must be alphabetic characters.");
+		pause(3000);
+		clearTextFromTheField(fName);
+		inputTextThenClickTab(fName, "");
+		verifyErrorMessageUnderTheField(firstNameIsARequiredFieldErrorMesssage, Attribute.INNER_HTML, "First Name is a required field.");
+		pause(3000);
+		inputTextThenClickTab(fName, "176351245");
+		verifyErrorMessageUnderTheField(mustBeAlphabeticCharactersErrorMessage, Attribute.INNER_HTML, "Must be alphabetic characters.");
+		pause(3000);
+	}
+	
+	public void iAmValidation() {
+		selectElelementFromDropdownOnebyOne(iAm, iAmList);
+		pause(3000);
+		selectDropdown(iAm, "Employed");
+		pause(3000);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	
+	public void inputDataInTheFields() {
 		fName.sendKeys("Mashrufa");
 		pause(4000);
 		lName.sendKeys("Rahman");
 		pause(3000);
-
+		selectDropdown(IAm, "a Student");
+		pause(4000);
+		selectDropdown(CourseWishToEnroll, "Python");
+		pause(3000);
+		selectDropdown(birthYear, "1960");
+		pause(4000);
+		selectDropdown(birthMonth, "February");
+		pause(4000);
+		selectDropdown(BirthDate, "Select Birth Date");
+		pause(4000);
 		phonNumber.sendKeys("6092538899");
 		pause(3000);
 		emailAddress.sendKeys("kaylith1@gmail.com");
 		pause(3000);
 		password.sendKeys("Abcd12345%");
+		selectDropdown(Gender, "Female");
+		pause(4000);
 		HomeAddressLine1.sendKeys("709 North Oks Blvd");
 		pause(3000);
 		HomeAddressLine2.sendKeys("69 Tennyson Rd");
@@ -177,13 +246,17 @@ public class HomePages {
 		pause(4000);
 		zipCode.sendKeys("07781");
 		pause(3000);
+		selectDropdown(ImmigrationStatus, "Citizen");
+		pause(4000);
+		selectDropdown(DateOfArrival, "08-27-2024");
 		emergencyContract.sendKeys("Adam phone number 609-555-8246");
 		pause(3000);
 		Signature.sendKeys("MashrufaRahman");
 		pause(4000);
-		selectDropdown(birthMonth, "February");
-		pause(4000);
+		
 
 	}
+*/
+
 
 }
