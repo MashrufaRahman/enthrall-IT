@@ -27,7 +27,18 @@ public class HomePageTest extends BaseClass {
 	public void useAutomationBttn() {
 		homePages.clickAutomationButtonAndDirectToEnrollmentPage();
 	}
-	
+	@Test
+	public void homeAddress1ValiidationTest() {
+		homePages.clickLoginButton();
+		homePages.homeAddress1Valiidation();
+		
+	}
+	@Test
+	public void primaryLanguageValidationTest() {
+		homePages.clickLoginButton();
+		homePages.primaryLanguageValidation();
+	}
+		
 
 	@Test
 	public void enrollmentProcess() {
@@ -35,7 +46,12 @@ public class HomePageTest extends BaseClass {
 		homePages.clickAutomationButtonAndDirectToEnrollmentPage();
 		homePages.firstNameValidation();
 		homePages.iAmValidation();
+		homePages.emailAddressValidation();
+		homePages.birthYearValidation();
+		
+		
 	}
+	
 	
 		
 	}
