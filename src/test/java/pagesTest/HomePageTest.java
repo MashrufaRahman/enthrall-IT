@@ -30,7 +30,7 @@ public class HomePageTest extends BaseClass {
 	@Test
 	public void homeAddress1ValiidationTest() {
 		homePages.clickLoginButton();
-		homePages.homeAddress1Valiidation();
+		
 		
 	}
 	@Test
@@ -45,9 +45,9 @@ public class HomePageTest extends BaseClass {
 		homePages.clickLoginButton();
 		homePages.clickAutomationButtonAndDirectToEnrollmentPage();
 		homePages.firstNameValidation();
-		homePages.iAmValidation();
-		homePages.emailAddressValidation();
-		homePages.birthYearValidation();
+		homePages.dropDownValidation();
+		homePages.inputTextValidation();
+		
 		
 		
 	}

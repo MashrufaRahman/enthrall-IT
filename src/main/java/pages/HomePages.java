@@ -129,6 +129,20 @@ public class HomePages {
 	WebElement primaryLanguag;
 	@FindBy(xpath = "//select[@id='id_primary_language']/option")
 	List<WebElement> primaryLanguageList;
+	@FindBy(xpath = "//select[@name='country_of_origin']")
+	WebElement countryOfOrigin;
+	@FindBy(xpath = "//select[@name='country_of_origin']/option")
+	List<WebElement> setCountryOfOrigin;
+	@FindBy(css = "input#id_f_name")
+	WebElement signature;
+	@FindBy(css = "input[id='id_emergency_contact']")
+	WebElement eEmergencyContact;
+	@FindBy(css = "select[id='id_primary_language']")
+	WebElement languag;
+	@FindBy(xpath = "//select[@name='primary_language']/option")
+	List<WebElement> listOfLanguag;
+	
+	 
 
 	// @FindBy(xpath = "//select[@name='i_am' and @class='form-control']")
 	// WebElement IamDd;
@@ -202,19 +216,36 @@ public class HomePages {
 				"First Name is a required field.");
 		pause(3000);
 		inputTextThenClickTab(fName, "176351245");
-		verifyErrorMessageUnderTheField(mustBeAlphabeticCharactersErrorMessage, Attribute.INNER_HTML,
-				"Must be alphabetic characters.");
+		verifyErrorMessageUnderTheField(mustBeAlphanumericCharactersErrorMessagElement, Attribute.INNER_HTML,"Must be alphabetic characters.");
 		pause(3000);
 	}
 
-	public void iAmValidation() {
+	public void dropDownValidation() {
 		selectElelementFromDropdownOnebyOne(iAm, iAmList);
 		pause(3000);
 		selectDropdown(iAm, "Employed");
 		pause(3000);
+		selectElelementFromDropdownOnebyOne(countryOfOrigin, setCountryOfOrigin);
+		pause(3000);
+		selectDropdown(countryOfOrigin, "Albanina");
+		pause(3000);
+		selectElelementFromDropdownOnebyOne(birthYear, birthYearList);
+		pause(4000);
+		selectDropdown(birthYear, "1960");
+		inputTextThenClickTab(birthYear, "");
+		pause(4000);
+		verifyErrorMessageUnderTheField(birthYearIsARequiredFieldErrorMessage, Attribute.INNER_HTML,
+				"Birth Year is a required field.");
+		pause(4000);
+		selectElelementFromDropdownOnebyOne(languag,listOfLanguag );
+		pause(3000);
+		selectDropdown(languag, "Bengali");
+		
+		
+		
 	}
 
-	public void emailAddressValidation() {
+	public void inputTextValidation() {
 		inputTextThenClickTab(emailAddress, "");
 		verifyErrorMessageUnderTheField(emailAddressErrorMessag, Attribute.INNER_HTML,
 				"Email Address is a requir field");
@@ -226,30 +257,17 @@ public class HomePages {
 		pause(4000);
 		inputTextThenClickTab(MustBeAValidEmailddressErrorMessage, "Must be a valid Email Address.");
 		pause(4000);
-
-	}
-
-	public void homeAddress1Valiidation() {
+		inputText(signature, "MashrufaRahman");
+		pause(3000);
 		inputTextThenClickTab(HomeAddressLine1, "");
 		verifyErrorMessageUnderTheField(HomeAddressLine1IsARequiredFieldErrorMessage, Attribute.ID,
 				"Home Address Line 1 is a required field.");
 		inputTextThenClickTab(HomeAddressLine1, "'-,._");
 		verifyErrorMessageUnderTheField(mustBeAlphanumericCharactersErrorMessagElement, Attribute.ID,
 				"Must be alphanumeric characters.");
-
+		inputText(emergencyContract, "603-755-2561");
 	}
-
-	public void birthYearValidation() {
-		selectElelementFromDropdownOnebyOne(birthYear, birthYearList);
-		pause(4000);
-		selectDropdown(birthYear, "1960");
-		inputTextThenClickTab(birthYear, "");
-		pause(4000);
-		verifyErrorMessageUnderTheField(birthYearIsARequiredFieldErrorMessage, Attribute.INNER_HTML,
-				"Birth Year is a required field.");
-		pause(4000);
-	}
-
+	
 	public void primaryLanguageValidation() {
 		selectElelementFromDropdownOnebyOne(primaryLanguag, primaryLanguageList);
 
