@@ -10,35 +10,37 @@ public class HomePageTest extends BaseClass {
 	public void enrollmentTest() {
 		homePages.clickLoginButton();
 		homePages.clickAutomationButtonAndDirectToEnrollmentPage();
-		//homePages.use_of_dropdown_selectByValue();
+		homePages.inputDataInTheFields();
+	   // homePages.use_of_dropdown_selectByValue();
 		//homePages.use_of_dropdown_selectByIndex();
 		//homePages.use_of_dropdown_selectByVisibleText();
 
 	}
-	@ Test()
+
+	@Test()
 
 	public void use_of_dropdown_selectByValue_test() {
-		//homePages.use_of_dropdown_selectByValue();
-		//homePages.clickAutomationButton();
+		// homePages.use_of_dropdown_selectByValue();
+		// homePages.clickAutomationButton();
 	}
-	
+
 	@Test
-	
+
 	public void useAutomationBttn() {
+		homePages.clickLoginButton();
 		homePages.clickAutomationButtonAndDirectToEnrollmentPage();
 	}
-	@Test
-	public void homeAddress1ValiidationTest() {
-		homePages.clickLoginButton();
-		
-		
-	}
+
+	/*
+	 * @Test public void homeAddress1ValiidationTest() {
+	 * homePages.clickLoginButton(); }
+	 */
 	@Test
 	public void primaryLanguageValidationTest() {
 		homePages.clickLoginButton();
+		homePages.clickAutomationButtonAndDirectToEnrollmentPage();
 		homePages.primaryLanguageValidation();
 	}
-		
 
 	@Test
 	public void enrollmentProcess() {
@@ -47,13 +49,7 @@ public class HomePageTest extends BaseClass {
 		homePages.firstNameValidation();
 		homePages.dropDownValidation();
 		homePages.inputTextValidation();
-		
-		
-		
+
 	}
-	
-	
-		
-	}
-	
-	
+
+}
