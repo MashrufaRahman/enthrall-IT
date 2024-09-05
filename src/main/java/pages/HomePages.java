@@ -4,17 +4,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
-
-import lombok.experimental.FieldNameConstants;
-import net.bytebuddy.asm.MemberSubstitution.FieldValue;
-
 import static common.CommonAction.*;
-
-import java.security.PublicKey;
-import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 import constants.Attribute;
@@ -110,7 +102,7 @@ public class HomePages {
 
 	@FindBy(xpath = "//input[@name='city']")
 	WebElement city;
-	
+
 	@FindBy(xpath = "//select[@id='id_state']")
 	WebElement state;
 	@FindBy(xpath = "//select[@id='id_state']")
@@ -159,7 +151,7 @@ public class HomePages {
 	WebElement eEmergencyContact;
 	@FindBy(xpath = "//select[@id='id_highest_education']")
 	WebElement highestEducation;
-	@FindBy(xpath = "//select[@id='id_highest_education']" )
+	@FindBy(xpath = "//select[@id='id_highest_education']")
 	WebElement educationGraduate;
 	@FindBy(xpath = "//select[@id='id_country_of_origin']")
 	WebElement countryOfOriging;
@@ -169,6 +161,16 @@ public class HomePages {
 	WebElement languag;
 	@FindBy(xpath = "//select[@name='primary_language']/option")
 	List<WebElement> listOfLanguag;
+	@FindBy(linkText = "Select your course from the dropdown")
+	WebElement enrollHeader;
+	@FindBy(linkText = "Please enter your personal and contact information.")
+	WebElement enrollSubHeader;
+	@FindBy(linkText = "All fields are required unless marked (optional).")
+	WebElement enrollOtherHeader;
+	@FindBy(xpath = "//input[@id='is_agree_terms']")
+	WebElement selectAgreeButton;
+	
+	
 
 	// @FindBy(xpath = "//select[@name='i_am' and @class='form-control']")
 	// WebElement IamDd;
@@ -193,13 +195,13 @@ public class HomePages {
 
 	}
 	/*
-	  public void use_of_dropdown_selectByValue() { //pause(4000);
-	  clickLoginButton();
-	  driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
-	  driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
-	  driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(3000)); select =
-	  new Select(IAm); select.selectByValue("Student"); pause(4000);
-	  //https://enthrallit.com/course/dashboard/enrolls/ }
+	 * public void use_of_dropdown_selectByValue() { //pause(4000);
+	 * clickLoginButton();
+	 * driver.navigate().to("https://enthrallit.com/course/dashboard/enrolls/");
+	 * driver.manage().timeouts().implicitlyWait(Duration.ofMillis(3000));
+	 * driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(3000)); select =
+	 * new Select(IAm); select.selectByValue("Student"); pause(4000);
+	 * //https://enthrallit.com/course/dashboard/enrolls/ }
 	 */
 
 	public void use_of_dropdown_selectByValue() {
@@ -342,6 +344,9 @@ public class HomePages {
 	}
 
 	public void inputDataInTheFields() {
+		validationOfHeader(enrollHeader, "Select your course from the dropdown");
+		validationOfSubHeader(enrollSubHeader, "Please enter your personal and contact information.");
+		validationOfOtherHeader(enrollOtherHeader, "All fields are required unless marked (optional).");
 		fName.sendKeys("Mashrufa");
 		pause(4000);
 		middleName.sendKeys("Haque");
@@ -378,7 +383,7 @@ public class HomePages {
 		pause(3000);
 		selectDropdown(ImmigrationStatus, "Citizen");
 		pause(4000);
-		//selectDropdown(DateOfArrival, "08-27-2024");
+		// selectDropdown(DateOfArrival, "08-27-2024");
 		DateOfArrival.sendKeys("08/03/2024");
 		pause(4000);
 		emergencyContract.sendKeys("Adam phone number 609-555-8246");
@@ -394,6 +399,21 @@ public class HomePages {
 		selectDropdown(primaryLanguag, "Bengali");
 		pause(3000);
 		Signature.sendKeys("MashrufaRahman");
+		pause(4000);
+		selectAgreeButton.click();
+		
+
+	}
+
+	public void use_of_navigate_method() {
+		pause(4000);
+		driver.navigate().to("https://www.macys.com/");
+		pause(4000);
+		driver.navigate().back();
+		pause(4000);
+		driver.navigate().forward();
+		pause(4000);
+		driver.navigate().refresh();
 		pause(4000);
 
 	}
