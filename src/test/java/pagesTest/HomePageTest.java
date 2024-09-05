@@ -51,5 +51,9 @@ public class HomePageTest extends BaseClass {
 		homePages.inputTextValidation();
 
 	}
+	@Test
+	public void use_Of_navigate_method_test() {
+		homePages.use_of_navigate_method();
+	}
 
 }
