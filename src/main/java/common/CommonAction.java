@@ -137,7 +137,6 @@ public class CommonAction {
 			Loggers.logTheTest(element + " : This element Not Found");
 			Assert.fail();
 		}
-
 	}
 
 	public static void validationOfSubHeader(WebElement element, String expectedSubHeader) {
@@ -151,7 +150,6 @@ public class CommonAction {
 			Loggers.logTheTest(element + " : This element Not Found");
 			Assert.fail();
 		}
-
 	}
 
 	public static void validationOfOtherHeader(WebElement element, String expectedOtherHeader) {
@@ -232,17 +230,24 @@ public class CommonAction {
 		}
 	}
 
-	public static void clickUsingJavascriptExecutor(WebDriver driver, String script, WebElement element) {
+	public static void clickUsingJavascriptExecutor(WebDriver driver, WebElement element) {
 		// JavascriptExecutor js = (JavascriptExecutor)driver; // instead of writing
 		// this 'js' object
 		// we can write below one
-		((JavascriptExecutor) driver).executeScript(script, element);
-		Loggers.logTheTest("JavascriptExecutor executing ..." + script + " to click on element ---> " + element);
+		((JavascriptExecutor) driver).executeScript("arguments[0].click()", element);
+		Loggers.logTheTest(
+				"JavascriptExecutor executing ..." + " arguments[0].click()" + " to click on element ---> " + element);
 	}
 
 	public static void inputTextUsingJavascriptExecutor(WebDriver driver, String script, WebElement element) {
 		((JavascriptExecutor) driver).executeScript(script, element);
 		Loggers.logTheTest("JavascriptExecutor executing ..." + script + " to input Text on element ---> " + element);
+	}
+
+	public static void scrollIntoViewTheElementUsingJavascriptExecutor(WebDriver driver, WebElement element) {
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", element);
+		Loggers.logTheTest("JavascriptExecutor executing ..." + " arguments[0].scrollIntoView(true)"
+				+ " to input Text on element ---> " + element);
 	}
 
 	// Attribute is coming from package constants, we will check the outcome later
@@ -266,7 +271,7 @@ public class CommonAction {
 			String actualLength = getAttributeValue(element, attribute);
 			Loggers.logTheTest("The field " + element + " ---> has Actual Length : " + actualLength
 					+ "and Expected Length : " + expectedLength);
-			//Assert.assertEquals(actualLength, expectedLength, "Length doesn't match");
+			// Assert.assertEquals(actualLength, expectedLength, "Length doesn't match");
 		} catch (NoSuchElementException | NullPointerException e) {
 			e.printStackTrace();
 			Loggers.logTheTest(element + "<----------> has not been found\n" + e.getMessage());
@@ -325,5 +330,11 @@ public class CommonAction {
 			Loggers.logTheTest("Screenshot cannot be captured");
 		}
 		return targetFile.getAbsolutePath();
+	}
+
+	public static void uploadPhotoImage(WebElement element, String location) {
+		File file = new File(location);
+		element.sendKeys(file.getAbsolutePath());
+		pause(4000);
 	}
 }

@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,9 +8,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import static common.CommonAction.*;
+
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 import constants.Attribute;
+import net.bytebuddy.asm.MemberSubstitution.FieldValue;
 
 public class HomePages {
 
@@ -50,8 +54,8 @@ public class HomePages {
 	@FindBy(xpath = "//input[@id='id_m_name']")
 	WebElement middleNamElement;
 
-	@FindBy(xpath = "//small[contains(text(), 'alphabetic')]")
-	WebElement mustBeAlphabeticCharactersErrorMessage;
+	// @FindBy(xpath = "//small[contains(text(), 'alphabetic')]")
+	// WebElement mustBeAlphabeticCharactersErrorMessage;
 
 	@FindBy(xpath = "//small[contains(text(), 'First Name is a required field.')]")
 	WebElement firstNameIsARequiredFieldErrorMesssage;
@@ -121,14 +125,14 @@ public class HomePages {
 	WebElement birthYear;
 	@FindBy(xpath = "//select[@name='birth_year']/option")
 	List<WebElement> birthYearList;
-	@FindBy(xpath = "//select[@name='birth_year']")
-	WebElement birthYearIsARequiredFieldErrorMessage;
+	//// @FindBy(xpath = "//select[@name='birth_year']")
+	// WebElement birthYearIsARequiredFieldErrorMessage;
 	@FindBy(xpath = "//select[@name='birth_month']")
 	WebElement birthMonth;
 	@FindBy(xpath = "//select[@name='gender']")
 	WebElement Gender;
 	@FindBy(xpath = "//select[@id='id_birth_date']")
-	WebElement BirthDate;
+	WebElement birthDate;
 	@FindBy(xpath = "//select[@name='immigration_status']")
 	WebElement ImmigrationStatus;
 	@FindBy(xpath = "//input[@name='arrival_date']")
@@ -161,22 +165,58 @@ public class HomePages {
 	WebElement languag;
 	@FindBy(xpath = "//select[@name='primary_language']/option")
 	List<WebElement> listOfLanguag;
-	@FindBy(linkText = "Select your course from the dropdown")
+	@FindBy(xpath = "//h3[contains(text(), 'Select')]")
 	WebElement enrollHeader;
-	@FindBy(linkText = "Please enter your personal and contact information.")
+	@FindBy()
 	WebElement enrollSubHeader;
-	@FindBy(linkText = "All fields are required unless marked (optional).")
+	@FindBy()
 	WebElement enrollOtherHeader;
-	@FindBy(xpath = "//input[@id='is_agree_terms']")
+	@FindBy(xpath = "//input[@id='is_agree']")
 	WebElement selectAgreeButton;
-	
-	
+	@FindBy(xpath = "//select[@id='id_i_am']")
+	WebElement iAmIsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//input[@id='id_phone']")
+	WebElement phoneNumberIsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//select[@id='id_course_wish_to_enroll']")
+	WebElement courseWishToEnrollIsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//input[@id='id_email']")
+	WebElement emailAddressIsARequiredFieldErrorMessag;
+	@FindBy(xpath = "//input[@name='image']")
+	WebElement personalmageIsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//span[text()='Photo Id is a required field.']")
+	WebElement photoIdIsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//select[@id='id_birth_year']")
+	WebElement birthYearIsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//select[@id='id_birth_month']")
+	WebElement birthMonthIsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//span[text()='Birth Date is a required field.']")
+	WebElement birthDateIsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//span[text()='Home Address Line 1 is a required field.']")
+	WebElement homeAddressLine1IsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//span[text()='City is a required field.']")
+	WebElement cityIsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//span[text()='State is a required field.']")
+	WebElement stateIsARequiredFieldErrorMessage;
+	@FindBy(xpath = "//span[text()='Must be alphabetic characters.']")
+	WebElement mustBeAlphabeticCharactersErrorMessage;
+	@FindBy(xpath = "//span[text()='Signature is a required field.']")
+	WebElement signatureIsARequiredFieldErrorMessage;
+
+	@FindBy(xpath = "//button[@id='submit_button']")
+	WebElement submit;
+
+	@FindBy(xpath = "//h1[text()='Registration Successful!']")
+	WebElement registrationSuccessfulHeader;
+
+	@FindBy(xpath = "//p[contains(text(), 'Thank you ')]")
+	WebElement registrationSuccessfulMessage;
 
 	// @FindBy(xpath = "//select[@name='i_am' and @class='form-control']")
 	// WebElement IamDd;
 	/*
 	 * public void clickLogo() { logo.click(); pause(4000); }
 	 */
+
 	public void clickLoginButton() {
 		elementDisplayed(logInFromToolbar);
 		// clickEliment(logInFromToolbar);
@@ -194,6 +234,138 @@ public class HomePages {
 		pause(2000);
 
 	}
+
+	public void clickAutomationButtonAndDirectToEnrollmentPage() {
+		elementEnabled(automation);
+		verifyTextOfTheWebElement(automation, "Automation");
+		clickElement(automation);
+		pause(2000);
+		elementEnabled(enrollNow);
+		verifyTextOfTheWebElement(enrollNow, "Enroll Now");
+		clickElement(enrollNow);
+		pause(4000);
+		Set<String> allWindowHandales = driver.getWindowHandles();
+		// Extract parent and child
+		String parent = (String) allWindowHandales.toArray()[0];
+		String child = (String) allWindowHandales.toArray()[1];
+		driver.switchTo().window(child);
+		pause(4000);
+		// validation of the header, subheader, other header, title, current url
+	}
+
+	/*
+	 * Test: scroll, then click back button, validate the header, title, current url
+	 * Method name: clickOnBacklButtonNavigateToEnrollNowPage
+	 * 
+	 * Test: scroll, then click cancel button, validate the header, title, current
+	 * url Method name: clickOnCancelButtonNavigateToDashboad
+	 * 
+	 * Test: scroll, then click submit button, validate the error message under all
+	 * fields Method name: clickOnSubmitButtonWithoutAnyData
+	 */
+
+	public void inputDataInTheFields() {
+		validationOfHeader(enrollHeader, "Select your course from the dropdown");
+		// validationOfSubHeader(enrollSubHeader, "Please enter your personal and
+		// contact information.");
+		// validationOfOtherHeader(enrollOtherHeader, "All fields are required unless
+		// marked (optional).");
+		inputText(fName, "Mash-rufa Ma'shyyyyy");
+		pause(4000);
+		inputText(middleName, "Haque");
+		pause(4000);
+		inputText(lName, "Rahman");
+		pause(3000);
+		selectDropdown(iAm, "a Student");
+		pause(4000);
+		selectDropdown(CourseWishToEnroll, "Python");
+		pause(3000);
+		phonNumber.sendKeys("6092538899");
+		pause(3000);
+		emailAddress.sendKeys("kaylith1@gmail.com");
+		pause(3000);
+		password.sendKeys("Abcd12345%");
+		pause(4000);
+		selectDropdown(Gender, "Female");
+		pause(4000);
+		File pi = new File("./image/personalImage.jpg");
+		WebElement personalImage = driver.findElement(By.xpath("//input[@name='image']"));
+		personalImage.sendKeys(pi.getAbsolutePath());
+		pause(4000);
+		File phid = new File("./image/photoId.png");
+		WebElement photoId = driver.findElement(By.xpath("//input[@name='photo_id']"));
+		photoId.sendKeys(phid.getAbsolutePath());
+		pause(4000);
+		selectDropdown(birthYear, "1960");
+		pause(4000);
+		selectDropdown(birthMonth, "February");
+		pause(4000);
+		selectDropdown(birthDate, "21");
+		pause(4000);
+		scrollIntoViewTheElementUsingJavascriptExecutor(driver, submit);
+		pause(4000);
+		HomeAddressLine1.sendKeys("709 North Oks Blvd");
+		pause(3000);
+		HomeAddressLine2.sendKeys("70 Tennyson Rd");
+		pause(3000);
+		city.sendKeys("North Brunswick");
+		pause(4000);
+		selectDropdown(state, "Alabama");
+		pause(4000);
+		zipCode.sendKeys("07781");
+		pause(3000);
+		selectDropdown(ImmigrationStatus, "Citizen");
+		pause(4000);
+		// selectDropdown(DateOfArrival, "08-27-2024");
+		DateOfArrival.sendKeys("08/03/2024");
+		pause(4000);
+		emergencyContract.sendKeys("Adam phone number 609-555-8246");
+		pause(3000);
+		howDidYouKnowAboutEnthrallIt.sendKeys("friend");
+		pause(4000);
+		selectDropdown(highestEducation, "Graduate");
+		pause(3000);
+		selectDropdown(countryOfOrigin, "Bangladesh");
+		pause(3000);
+		selectDropdown(primaryLanguag, "Bengali");
+		pause(3000);
+		Signature.sendKeys("Mashrufa Haque Rahman");
+		pause(4000);
+		// use alert here
+		selectAgreeButton.click();
+		pause(4000);
+		clickElement(submit);
+		pause(4000);
+		validationOfHeader(registrationSuccessfulHeader, "Registration Successful!");
+		validationOfOtherHeader(registrationSuccessfulMessage,
+				"Thank you for registering. You will receive a confirmation email shortly.");
+		verifyTitle(driver, "Registration Success");
+		verifyCurrentUrl(driver, "https://enthrallit.com/course/enroll/success/");
+		pause(4000);
+	}
+
+	public void firstNameValidation() {
+		verifyLengthOfTheFieldContent(fName, Attribute.MAX_LENGTH, "20");
+		inputTextThenClickTab(fName, "$$^&@$(");
+		verifyErrorMessageUnderTheField(mustBeAlphabeticCharactersErrorMessage, Attribute.INNER_HTML,
+				"Must be alphabetic characters.");
+		pause(3000);
+		clearTextFromTheField(fName);
+		inputTextThenClickTab(fName, "");
+		verifyErrorMessageUnderTheField(firstNameIsARequiredFieldErrorMesssage, Attribute.INNER_HTML,
+				"First Name is a required field.");
+		pause(3000);
+		inputTextThenClickTab(fName, "176351245");
+		verifyErrorMessageUnderTheField(mustBeAlphanumericCharactersErrorMessagElement, Attribute.INNER_HTML,
+				"Must be alphabetic characters.");
+		pause(3000);
+	}
+
+	/*
+	 * Middle Name validation Last Name validation every field should be evaluated
+	 * according to requirement
+	 */
+
 	/*
 	 * public void use_of_dropdown_selectByValue() { //pause(4000);
 	 * clickLoginButton();
@@ -224,39 +396,10 @@ public class HomePages {
 
 	}
 
-	public void clickAutomationButtonAndDirectToEnrollmentPage() {
-		elementEnabled(automation);
-		verifyTextOfTheWebElement(automation, "Automation");
-		clickElement(automation);
-		pause(2000);
-		elementEnabled(enrollNow);
-		verifyTextOfTheWebElement(enrollNow, "Enroll Now");
-		clickElement(enrollNow);
-		pause(4000);
-		Set<String> allWindowHandales = driver.getWindowHandles();
-		// Extract parent and child
-		String parent = (String) allWindowHandales.toArray()[0];
-		String child = (String) allWindowHandales.toArray()[1];
-		driver.switchTo().window(child);
-		pause(4000);
-
-	}
-
-	public void firstNameValidation() {
-		verifyLengthOfTheFieldContent(fName, Attribute.MAX_LENGTH, "20");
-		inputTextThenClickTab(fName, "$$^&@$(");
-		verifyErrorMessageUnderTheField(mustBeAlphabeticCharactersErrorMessage, Attribute.INNER_HTML,
-				"Must be alphabetic characters.");
-		pause(3000);
-		clearTextFromTheField(fName);
-		inputTextThenClickTab(fName, "");
-		verifyErrorMessageUnderTheField(firstNameIsARequiredFieldErrorMesssage, Attribute.INNER_HTML,
-				"First Name is a required field.");
-		pause(3000);
-		inputTextThenClickTab(fName, "176351245");
-		verifyErrorMessageUnderTheField(mustBeAlphanumericCharactersErrorMessagElement, Attribute.INNER_HTML,
-				"Must be alphabetic characters.");
-		pause(3000);
+	public void personalImageValidation() {
+		File pi = new File("./image/personal image.jpg");
+		WebElement personalImage = driver.findElement(By.xpath("//input[@name='image']"));
+		personalImage.sendKeys(pi.getAbsolutePath());
 	}
 
 	public void dropDownValidation() {
@@ -343,65 +486,36 @@ public class HomePages {
 
 	}
 
-	public void inputDataInTheFields() {
-		validationOfHeader(enrollHeader, "Select your course from the dropdown");
-		validationOfSubHeader(enrollSubHeader, "Please enter your personal and contact information.");
-		validationOfOtherHeader(enrollOtherHeader, "All fields are required unless marked (optional).");
-		fName.sendKeys("Mashrufa");
+	public void enrolementPageErrorMessageValidation() {
+		verifyErrorMessageUnderTheField(firstNameIsARequiredFieldErrorMesssage, Attribute.INNER_HTML,
+				"First Name is a required field.");
 		pause(4000);
-		middleName.sendKeys("Haque");
-		pause(4000);
-		lName.sendKeys("Rahman");
+		verifyErrorMessageUnderTheField(lastNameIsARequiredFieldErrorMessage, Attribute.INNER_HTML,
+				"Last Name is a required field.");
 		pause(3000);
-		selectDropdown(iAm, "a Student");
+		verifyErrorMessageUnderTheField(iAmIsARequiredFieldErrorMessage, Attribute.INNER_HTML,
+				"I'm is a required field.");
 		pause(4000);
-		selectDropdown(CourseWishToEnroll, "Python");
-		pause(3000);
-		phonNumber.sendKeys("6092538899");
-		pause(3000);
-		emailAddress.sendKeys("kaylith1@gmail.com");
-		pause(3000);
-		password.sendKeys("Abcd12345%");
+		verifyErrorMessageUnderTheField(iAmIsARequiredFieldErrorMessage, Attribute.INNER_HTML,
+				"I'm is a required field.");
 		pause(4000);
-		selectDropdown(Gender, "Female");
+		verifyErrorMessageUnderTheField(courseWishToEnrollIsARequiredFieldErrorMessage, Attribute.INNER_HTML,
+				"Course Wish to Enroll is a required field.");
 		pause(4000);
-		selectDropdown(birthYear, "1960");
+		verifyErrorMessageUnderTheField(phoneNumberIsARequiredFieldErrorMessage, Attribute.INNER_HTML,
+				"Phone Number is a required field.");
 		pause(4000);
-		selectDropdown(birthMonth, "February");
+		verifyErrorMessageUnderTheField(emailAddressIsARequiredFieldErrorMessag, Attribute.INNER_HTML,
+				"Email Address is a required field.");
 		pause(4000);
-		selectDropdown(BirthDate, "Select Birth Date");
+		verifyErrorMessageUnderTheField(personalmageIsARequiredFieldErrorMessage, Attribute.INNER_HTML,
+				"Personal Image is a required field.");
 		pause(4000);
-		HomeAddressLine1.sendKeys("709 North Oks Blvd");
-		pause(3000);
-		HomeAddressLine2.sendKeys("70 Tennyson Rd");
-		pause(3000);
-		city.sendKeys("North Brunswick");
+		verifyErrorMessageUnderTheField(photoIdIsARequiredFieldErrorMessage, Attribute.INNER_HTML,
+				"Photo Id is a required field.");
 		pause(4000);
-		selectDropdown(state, "Alabama");
-		pause(4000);
-		zipCode.sendKeys("07781");
-		pause(3000);
-		selectDropdown(ImmigrationStatus, "Citizen");
-		pause(4000);
-		// selectDropdown(DateOfArrival, "08-27-2024");
-		DateOfArrival.sendKeys("08/03/2024");
-		pause(4000);
-		emergencyContract.sendKeys("Adam phone number 609-555-8246");
-		pause(3000);
-		emergencyContract.sendKeys("609-522-6532");
-		pause(4000);
-		howDidYouKnowAboutEnthrallIt.sendKeys("friend");
-		pause(4000);
-		selectDropdown(highestEducation, "Graduate");
-		pause(3000);
-		selectDropdown(countryOfOrigin, "Bangladesh");
-		pause(3000);
-		selectDropdown(primaryLanguag, "Bengali");
-		pause(3000);
-		Signature.sendKeys("MashrufaRahman");
-		pause(4000);
-		selectAgreeButton.click();
-		
+		verifyErrorMessageUnderTheField(birthYearIsARequiredFieldErrorMessage, Attribute.INNER_HTML,
+				"Birth Year is a required field.");
 
 	}
 

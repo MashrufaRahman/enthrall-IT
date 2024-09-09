@@ -1,8 +1,6 @@
 package reports;
 //Before you create this class add dependency from the extent report
 
-import org.checkerframework.checker.units.qual.s;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
@@ -27,10 +25,8 @@ public class ExtentReportManager {
 			extentReports.setSystemInfo("OS Arch", System.getProperty("os.arch"));
 			extentReports.setSystemInfo("Environment", "SIT"); // QA or SIT = System Integration Test, UAT = User
 																// Acceptance Test
-
 		}
 		return extentReports;
-
 	}
 
 	/*
