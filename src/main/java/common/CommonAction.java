@@ -253,9 +253,10 @@ public class CommonAction {
 	// Attribute is coming from package constants, we will check the outcome later
 	// Why String type see next method
 	public static String getAttributeValue(WebElement element, Attribute attribute) {
+		String value = null;
 		try {
 			String atr = attribute.getTheAttribute();
-			String value = element.getAttribute(atr);
+			 value = element.getAttribute(atr);
 			Loggers.logTheTest("Value for the attribute \"" + attribute + "\" in the WebElement " + element
 					+ " is executed and receive --> " + value);
 		} catch (NoSuchElementException | NullPointerException e) {
@@ -263,7 +264,7 @@ public class CommonAction {
 			Loggers.logTheTest(element + "<----------> has not been found\n" + e.getMessage());
 			Assert.fail();
 		}
-		return null;
+		return value;
 	}
 
 	public static void verifyLengthOfTheFieldContent(WebElement element, Attribute attribute, String expectedLength) {

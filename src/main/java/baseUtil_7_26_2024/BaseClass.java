@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.bidi.browsingcontext.NavigationResult;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -18,7 +17,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import pages.HomePages;
+import pages.HomePage;
 import reports.ExtentReportManager;
 import reports.TestManager;
 import utils.Configuration;
@@ -29,7 +28,7 @@ import common.CommonAction;
 public class BaseClass {
 
 	public WebDriver driver;
-	public HomePages homePages;
+	public HomePage homePage;
 	Configuration configuration;
 	ExtentReports extentReports;
 	ExtentTest extentTest;
@@ -86,7 +85,7 @@ public class BaseClass {
 	}
 
 	public void initClass() {
-		homePages = new HomePages(driver);
+		homePage = new HomePage(driver);
 		// configuration = new Configuration();
 	}
 
